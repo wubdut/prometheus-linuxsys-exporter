@@ -25,11 +25,11 @@ public class TopProbe {
 	private void getData() throws IOException {
 		String command = "top -b -n 1";
 		String result = rpc.execute(command);
-		String[] top_line =  result.split("\n");
+		String[] lines =  result.split("\n");
 		DataParse dataParse = new DataParse();
 		
-		for (int i = 7; i < top_line.length; i++) {
-			String[] line = top_line[i].trim().split("[ ]+");
+		for (int i = 7; i < lines.length; i++) {
+			String[] line = lines[i].trim().split("[ ]+");
 			String pid = line[0];
 			String cpu = line[8];
 			String mem = line[9];

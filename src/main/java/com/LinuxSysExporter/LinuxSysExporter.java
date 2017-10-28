@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.LinuxSysExporter.service.TopService;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -21,19 +23,15 @@ public class LinuxSysExporter {
 	
     private List<Gauge> systemGaugeList;
     
-    public LinuxSysExporter() {}
+    private TopService topService;
     
-//    @RequestMapping(path = "/hello-world")
-//    public @ResponseBody String sayHello() {
-//        for (int i = 0; i < systemGaugeList.size(); i++) {
-//        	systemGaugeList.get(i).set(i);
-//        }
-//        return "hello, world";
-//    }
-
+    public LinuxSysExporter() {
+    	topService = new TopService("10.0.67.14", "root", "rsapm"); // Read config to get the target.
+    }
+    
     @RequestMapping(path = "/metrics")
     public void metrics(Writer responseWriter) throws IOException {
-    	
+    	topService.register("app").run();
         TextFormat.write004(responseWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
         responseWriter.close();
     }
