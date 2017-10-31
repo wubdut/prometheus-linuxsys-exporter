@@ -103,31 +103,6 @@ public class RemoteExecuteCommand {
         return result;
     }
     
-    
-    /**
-     * @author Ickes
-     * 远程执行shll脚本或者命令 
-     * @param cmd 
-     *      即将执行的命令 
-     * @return 
-     *      命令执行成功后返回的结果值，如果命令执行失败，返回空字符串，不是null 
-     * @since V0.1 
-     */  
-    public String executeSuccess(String cmd){
-        String result="";
-        try {
-            if(login()){
-                Session session= conn.openSession();//打开一个会话  
-                session.execCommand(cmd);//执行命令
-                result=processStdoutString(session.getStdout(),DEFAULTCHART);
-                conn.close();
-                session.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
       
    /** 
     * 解析脚本执行返回的结果集 
@@ -186,14 +161,6 @@ public class RemoteExecuteCommand {
     
     
     public static void main(String[] args) {
-        RemoteExecuteCommand rec=new RemoteExecuteCommand("10.0.67.33", "root","Abc,123.");
-        //执行命令
-        System.out.println(rec.execute("ifconfig"));
-        //执行脚本
-//        rec.execute("sh /usr/local/tomcat/bin/statup.sh");
-        //这个方法与上面最大的区别就是，上面的方法，不管执行成功与否都返回，
-        //这个方法呢，如果命令或者脚本执行错误将返回空字符串
-//        rec.executeSuccess("ifconfig");
         
     }
 }

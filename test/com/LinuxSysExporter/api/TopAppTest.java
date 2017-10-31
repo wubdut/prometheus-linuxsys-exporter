@@ -10,7 +10,7 @@ public class TopAppTest {
 
 	@Test
 	public void test() throws IOException {
-		TopApp top = new TopApp("10.0.67.14", "root", "rsapm");
+		TopApp top = new TopApp("39.108.214.220", "root", "Abc123+-*/");
 		for (String key : top.map.keySet()) {
 			System.out.println(key + " " + top.map.get(key));
 		}

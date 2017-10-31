@@ -10,7 +10,7 @@ public class TopPidTest extends TopApi {
 
 	@Test
 	public void test() throws IOException {
-		TopPid top = new TopPid("10.0.67.14", "root", "rsapm");
+		TopPid top = new TopPid("39.108.214.220", "root", "Abc123+-*/");
 		for (String key : top.map.keySet()) {
 			System.out.println(key + " " + top.map.get(key));
 		}

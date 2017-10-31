@@ -8,6 +8,7 @@ import java.util.Map;
 import com.LinuxSysExporter.basic.DataParse;
 import com.LinuxSysExporter.basic.Pair;
 import com.LinuxSysExporter.basic.RemoteExecuteCommand;
+import com.LinuxSysExporter.basic.SpecStrFilter;
 
 public class TopProbe {
 
@@ -25,8 +26,8 @@ public class TopProbe {
 	private void getData() throws IOException {
 		String command = "top -b -n 1";
 		String result = rpc.execute(command);
+		if (result == null || result.equals("")) return;
 		String[] lines =  result.split("\n");
-		DataParse dataParse = new DataParse();
 		
 		for (int i = 7; i < lines.length; i++) {
 			String[] line = lines[i].trim().split("[ ]+");
@@ -35,10 +36,10 @@ public class TopProbe {
 			String mem = line[9];
 			String name = line[11];
 			
-			double cpu_val = dataParse.str2double(cpu);
-			double mem_val = dataParse.str2double(mem);
+			double cpu_val = DataParse.str2double(cpu);
+			double mem_val = DataParse.str2double(mem);
 			if (Math.max(cpu_val, mem_val) > 0.0) {
-				String key = name.split("/")[0] + "_" +pid;
+				String key = DataParse.commandParse(name) + "_" +pid;
 				map.put(key, new Pair<Double, Double> (cpu_val, mem_val));
 			}
 		}

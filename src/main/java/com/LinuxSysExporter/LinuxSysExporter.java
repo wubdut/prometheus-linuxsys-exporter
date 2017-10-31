@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.LinuxSysExporter.basic.Configuration;
 import com.LinuxSysExporter.service.TopService;
 
 import java.io.IOException;
@@ -25,13 +26,14 @@ public class LinuxSysExporter {
     
     private TopService topService;
     
-    public LinuxSysExporter() {
-    	topService = new TopService("10.0.67.14", "root", "rsapm"); // Read config to get the target.
+    public LinuxSysExporter() throws IOException {
+    	Configuration conf = new Configuration();
+    	topService = new TopService(conf.ip, conf.userName, conf.userPwd); // Read config to get the target.
     }
     
     @RequestMapping(path = "/metrics")
     public void metrics(Writer responseWriter) throws IOException {
-    	topService.register("app").run();
+    	topService.register("topApp", "iotopApp", "iftopApp").run();
         TextFormat.write004(responseWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
         responseWriter.close();
     }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.LinuxSysExporter.basic.DataParse;
 import com.LinuxSysExporter.basic.RemoteExecuteCommand;
+import com.LinuxSysExporter.basic.SpecStrFilter;
 
 public class IotopProbe {
 
@@ -22,17 +23,17 @@ public class IotopProbe {
 	private void getData() throws IOException {
 		String command = "iotop -P -b -n 1";
 		String result = rpc.execute(command);
+		if (result == null || result.equals("")) return;
 		String[] lines =  result.split("\n");
-		DataParse dataParse = new DataParse();
 		
 		for (int i = 2; i < lines.length; i++) {
 			String[] line = lines[i].trim().split("[ ]+");
 			String pid = line[0];
-			double io_val = dataParse.str2double(line[9]);
-			String name = line[11].replaceAll("\\[|\\]", "").split("/")[0];
+			double io_val = DataParse.str2double(line[9]);
+			String name = line[11];
 			
 			if (io_val > 0) {
-				String key = name + "_" + pid;
+				String key = DataParse.commandParse(name) + "_" + pid;
 				map.put(key, io_val);
 //				System.out.println(name + " " + pid + " " + io_val);
 			}

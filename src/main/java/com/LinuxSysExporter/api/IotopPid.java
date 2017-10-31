@@ -19,7 +19,7 @@ public class IotopPid extends TopApi {
 	public void getData(IotopProbe iotopProbe) {
 		for (String key : iotopProbe.map.keySet()) {
 			String[] keys = key.split("_");
-			map.put(keys + "_cpu_" + keys[1], iotopProbe.map.get(key));
+			map.put(keys[0] + "_diskio_" + keys[1], iotopProbe.map.get(key));
 		}
 	}
 }

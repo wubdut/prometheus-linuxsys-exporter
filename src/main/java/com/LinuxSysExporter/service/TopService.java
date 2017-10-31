@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.LinuxSysExporter.api.IftopApp;
+import com.LinuxSysExporter.api.IftopPid;
+import com.LinuxSysExporter.api.IotopApp;
 import com.LinuxSysExporter.api.IotopPid;
 import com.LinuxSysExporter.api.TopApi;
 import com.LinuxSysExporter.api.TopApp;
@@ -33,17 +36,21 @@ public class TopService {
 	public TopService register(String... api) throws IOException {
 		topApiList = new ArrayList<TopApi> ();
 		for (int i = 0; i < api.length; i++) {
-			if (api.equals("topApp")) {
+			if (api[i].equals("topApp")) {
 				topApiList.add(new TopApp(ip, userName, userPwd));
-			} else if (api.equals("topPid")){
+			} else if (api[i].equals("topPid")){
 				topApiList.add(new TopPid(ip, userName, userPwd));
-			} else if (api.equals("iotopApp")) {
+			} else if (api[i].equals("iotopApp")) {
+				topApiList.add(new IotopApp(ip, userName, userPwd));
+			} else if (api[i].equals("iotopPid")) {
 				topApiList.add(new IotopPid(ip, userName, userPwd));
-			} else if (api.equals("iotopPid")) {
-				topApiList.add(new IotopPid(ip, userName, userPwd));
+			} else if (api[i].equals("iftopApp")) {
+				topApiList.add(new IftopApp(ip, userName, userPwd));
+			} else if (api[i].equals("iftopPid")) {
+				topApiList.add(new IftopPid(ip, userName, userPwd));
 			}
 			else {
-				System.out.println("\nThere is not api for your register\n");
+				System.out.println("\nThere is no api for your register\n");
 			}
 		}
 		return this;
