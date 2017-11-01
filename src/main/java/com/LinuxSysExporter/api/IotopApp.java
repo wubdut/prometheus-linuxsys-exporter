@@ -3,13 +3,11 @@ package com.LinuxSysExporter.api;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class IotopApp extends TopApi {
-
-	private IotopApp() {}
+public class IotopApp extends ProbeApi {
 	
-	public IotopApp(String ip, String userName, String userPwd) throws IOException {
+	public IotopApp() throws IOException {
 		map = new HashMap<String, Double>();
-		IotopPid iotopPid = new IotopPid(ip, userName, userPwd);
+		IotopPid iotopPid = new IotopPid();
 		getData(iotopPid);
 	}
 	

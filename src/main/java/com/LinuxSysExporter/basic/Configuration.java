@@ -7,19 +7,20 @@ import java.util.Properties;
 
 public class Configuration {
 
-	public String ip;
-	public String userName;
-	public String userPwd;
+	public static String ip;
+	public static String userName;
+	public static String userPwd;
 	
-	public Configuration() throws IOException {
-		getProperties("conf/target.properties");
+	static {
+		try {
+			getProperties("conf/target.properties");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public Configuration(String filePath) throws IOException {
-		getProperties(filePath);
-	}
-	
-	public void getProperties(String filePath) throws IOException {
+	public static void getProperties(String filePath) throws IOException {
 		Properties pro = new Properties();
 		FileInputStream in = new FileInputStream(filePath);
 		pro.load(in);
@@ -29,10 +30,4 @@ public class Configuration {
 		userPwd = pro.getProperty("userPwd");
 	}
 	
-	public static void main(String[] args) throws IOException {
-		Configuration conf = new Configuration();
-		System.out.println(conf.ip);
-		System.out.println(conf.userName);
-		System.out.println(conf.userPwd);
-	}
 }

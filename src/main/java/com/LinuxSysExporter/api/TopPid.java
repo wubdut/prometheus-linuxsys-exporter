@@ -6,21 +6,21 @@ import java.util.Map;
 
 import com.LinuxSysExporter.probe.TopProbe;
 
-public class TopPid extends TopApi{
+public class TopPid extends ProbeApi{
 	
-	private TopPid() {}
-	
-	public TopPid(String ip, String userName, String userPwd) throws IOException {
+	public TopPid() throws IOException {
 		map = new HashMap<String, Double> ();
-		TopProbe topProbe = new TopProbe(ip, userName, userPwd);
+		TopProbe topProbe = new TopProbe();
 		getData(topProbe);
 	}
 	
 	public void getData(TopProbe topProbe) {
 		for (String key : topProbe.map.keySet()) {
 			String[] keys = key.split("_");
-			map.put(keys[0] + "_cpu_" + keys[1], topProbe.map.get(key).first);
-			map.put(keys[0] + "_mem_" + keys[1], topProbe.map.get(key).second);
+			if (topProbe.map.get(key).first > 0)
+				map.put(keys[0] + "_cpu_" + keys[1], topProbe.map.get(key).first);
+			if (topProbe.map.get(key).second > 0)
+				map.put(keys[0] + "_mem_" + keys[1], topProbe.map.get(key).second);
 		}
 	}
 	

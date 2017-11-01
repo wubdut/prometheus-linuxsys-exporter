@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.LinuxSysExporter.basic.Configuration;
-import com.LinuxSysExporter.service.TopService;
+import com.LinuxSysExporter.service.ProbeService;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -24,16 +24,16 @@ public class LinuxSysExporter {
 	
     private List<Gauge> systemGaugeList;
     
-    private TopService topService;
+    private ProbeService service;
     
     public LinuxSysExporter() throws IOException {
     	Configuration conf = new Configuration();
-    	topService = new TopService(conf.ip, conf.userName, conf.userPwd); // Read config to get the target.
+    	service = new ProbeService(conf.ip, conf.userName, conf.userPwd); // Read config to get the target.
     }
     
     @RequestMapping(path = "/metrics")
     public void metrics(Writer responseWriter) throws IOException {
-    	topService.register("topApp", "iotopApp").run();
+    	service.register("topApp", "iotopApp", "nethogsApp").run();
         TextFormat.write004(responseWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
         responseWriter.close();
     }

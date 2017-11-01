@@ -6,13 +6,11 @@ import java.util.Map;
 
 import com.LinuxSysExporter.probe.TopProbe;
 
-public class TopApp extends TopApi {
+public class TopApp extends ProbeApi {
 	
-	private TopApp() {}
-	
-	public TopApp(String ip, String userName, String userPwd) throws IOException {
+	public TopApp() throws IOException {
 		map = new HashMap<String, Double>();
-		TopPid topPid = new TopPid(ip, userName, userPwd);
+		TopPid topPid = new TopPid();
 		getData(topPid);
 	}
 	

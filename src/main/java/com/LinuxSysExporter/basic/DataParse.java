@@ -49,4 +49,13 @@ public class DataParse {
 		String str = "B";
 		System.out.println(unit2double(str));
 	}
+	
+//	public static int backIndexLine(String[] lines, String line) {
+//		int pos = lines.length - 1;
+//		for (; pos > -1; pos--) {
+//			if (line.equals(lines[pos]))
+//				continue;
+//		}
+//		return pos;
+//	}
 }

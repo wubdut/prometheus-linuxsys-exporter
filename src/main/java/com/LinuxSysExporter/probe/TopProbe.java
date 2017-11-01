@@ -7,18 +7,16 @@ import java.util.Map;
 
 import com.LinuxSysExporter.basic.DataParse;
 import com.LinuxSysExporter.basic.Pair;
-import com.LinuxSysExporter.basic.RemoteExecuteCommand;
+import com.LinuxSysExporter.basic.RemoteExecute;
 import com.LinuxSysExporter.basic.SpecStrFilter;
 
 public class TopProbe {
 
-	public RemoteExecuteCommand rpc;
+	public RemoteExecute rpc;
 	public Map<String, Pair<Double, Double>> map;
 	
-	private TopProbe() {}
-	
-	public TopProbe(String ip, String userName, String userPwd) throws IOException {
-		rpc = new RemoteExecuteCommand(ip, userName, userPwd);
+	public TopProbe() throws IOException {
+		rpc = RemoteExecute.getInstance();
 		map = new HashMap<String, Pair<Double, Double>> ();
 		getData();
 	}

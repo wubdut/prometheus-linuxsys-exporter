@@ -4,18 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import com.LinuxSysExporter.basic.DataParse;
-import com.LinuxSysExporter.basic.RemoteExecuteCommand;
+import com.LinuxSysExporter.basic.RemoteExecute;
 import com.LinuxSysExporter.basic.SpecStrFilter;
 
 public class IotopProbe {
 
-	private RemoteExecuteCommand rpc;
+	private RemoteExecute rpc;
 	public Map<String, Double> map;
 	
-	private IotopProbe() {}
-	
-	public IotopProbe(String ip, String userName, String userPwd) throws IOException {
-		rpc = new RemoteExecuteCommand(ip, userName, userPwd);
+	public IotopProbe() throws IOException {
+		rpc = RemoteExecute.getInstance();
 		map = new HashMap<String, Double>();
 		getData();
 	}
@@ -35,7 +33,6 @@ public class IotopProbe {
 			if (io_val > 0) {
 				String key = DataParse.commandParse(name) + "_" + pid;
 				map.put(key, io_val);
-//				System.out.println(name + " " + pid + " " + io_val);
 			}
 		}
 	}

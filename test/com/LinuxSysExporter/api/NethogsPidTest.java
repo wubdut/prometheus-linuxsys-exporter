@@ -6,13 +6,13 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-public class IotopAppTest {
+public class NethogsPidTest {
 
 	@Test
 	public void test() throws IOException {
-		IotopApp iotop = new IotopApp();
-		for (String key : iotop.map.keySet()) {
-			System.out.println(key + " " + iotop.map.get(key));
+		NethogsPid nethogsPid = new NethogsPid();
+		for (String key : nethogsPid.map.keySet()) {
+			System.out.println(key + ": " + nethogsPid.map.get(key));
 		}
 	}
 
