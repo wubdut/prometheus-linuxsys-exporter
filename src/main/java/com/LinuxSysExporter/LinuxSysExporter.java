@@ -33,7 +33,7 @@ public class LinuxSysExporter {
     
     @RequestMapping(path = "/metrics")
     public void metrics(Writer responseWriter) throws IOException {
-    	topService.register("topApp", "iotopApp", "iftopApp").run();
+    	topService.register("topApp", "iotopApp").run();
         TextFormat.write004(responseWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
         responseWriter.close();
     }
