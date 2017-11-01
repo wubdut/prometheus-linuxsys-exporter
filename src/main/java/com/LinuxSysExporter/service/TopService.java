@@ -3,6 +3,7 @@ package com.LinuxSysExporter.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.LinuxSysExporter.api.IotopPid;
 import com.LinuxSysExporter.api.TopApi;
 import com.LinuxSysExporter.api.TopApp;
 import com.LinuxSysExporter.api.TopPid;
+import com.LinuxSysExporter.basic.CheckFunction;
 
 import io.prometheus.client.Gauge;
 
@@ -57,28 +59,33 @@ public class TopService {
 	}
 	
 	public void run() throws IOException {
+		setNewGauge();
+		setOldGauge();
+	}
+	
+	private void setNewGauge() {
 		for (int i = 0; i < topApiList.size(); i++) {
-			buildNewGauge(topApiList.get(i));
-			for (String key : gaugeMap.keySet()) {
-				String[] keys = key.split("_");
-				String key_tmp = keys[1] + "_" + keys[2];
-				if (topApiList.get(i).map.keySet().contains(key_tmp)) {
-					gaugeMap.get(key).set(topApiList.get(i).map.get(key_tmp));
-				} else {
-					gaugeMap.get(key).set(0.0);
+//			System.out.println("swtNewGauge");
+			for (String key : topApiList.get(i).map.keySet()) {
+				String key_tmp = "linuxsys_" + key;
+				if (!gaugeMap.containsKey(key_tmp)) {
+					gaugeMap.put(key_tmp, Gauge.build()
+							.name(key_tmp)
+							.help("This is " + key_tmp)
+							.register());
 				}
+				gaugeMap.get(key_tmp).set(topApiList.get(i).map.get(key));
 			}
 		}
 	}
 	
-	private void buildNewGauge(TopApi topApi) {
-		for (String key : topApi.map.keySet()) {
-			String key_tmp = "linuxsys_" + key;
-			if (!gaugeMap.containsKey(key_tmp)) {
-				gaugeMap.put(key_tmp, Gauge.build()
-						.name(key_tmp)
-						.help("This is " + key_tmp)
-						.register());
+	private void setOldGauge() {
+//		System.out.println("swtOldGauge");
+		for (String key : gaugeMap.keySet()) {
+			String[] keys = key.split("_");
+			String key_tmp = keys[1] + "_" + keys[2];
+			if (!CheckFunction.inApiList(topApiList, key_tmp)) {
+				gaugeMap.get(key).set(0.0);
 			}
 		}
 	}

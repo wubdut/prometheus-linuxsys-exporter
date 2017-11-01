@@ -10,7 +10,8 @@ public class IotopPidTest {
 
 	@Test
 	public void test() throws IOException {
-		IotopPid iotop = new IotopPid("39.108.214.220", "root", "Abc123+-*/");
+		IotopPid iotop = new IotopPid("10.0.67.14", "root", "rsapm");
+		// "39.108.214.220", "root", "Abc123+-*/"
 		for (String key : iotop.map.keySet()) {
 			System.out.println(key + " " + iotop.map.get(key));
 		}
