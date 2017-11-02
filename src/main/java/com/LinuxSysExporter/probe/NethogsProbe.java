@@ -36,6 +36,9 @@ public class NethogsProbe {
 			String name = cmdInfo[len-3];
 			String pid = cmdInfo[len-2];
 			
+			if (pid.equals("0")) continue;
+			
+			
 			double sent = DataParse.str2double(line[1]);
 			double received = DataParse.str2double(line[2]);
 			
