@@ -50,12 +50,12 @@ public class DataParse {
 		System.out.println(unit2double(str));
 	}
 	
-//	public static int backIndexLine(String[] lines, String line) {
-//		int pos = lines.length - 1;
-//		for (; pos > -1; pos--) {
-//			if (line.equals(lines[pos]))
-//				continue;
-//		}
-//		return pos;
-//	}
+	public static int backIndexLine(String[] lines, String line) {
+		int pos = lines.length - 1;
+		for (; pos > -1; pos--) {
+			if (line.equals(lines[pos]))
+				break;
+		}
+		return pos;
+	}
 }

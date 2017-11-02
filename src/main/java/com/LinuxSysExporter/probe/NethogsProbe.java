@@ -24,7 +24,10 @@ public class NethogsProbe {
 		if (result == null || result.equals("")) return;
 		String[] lines =  result.split("\n");
 		
-		for (int i = 8; i < lines.length-1; i++) {
+//		System.out.println("行数：" + DataParse.backIndexLine(lines, "Refreshing:"));
+		int pos = DataParse.backIndexLine(lines, "Refreshing:");
+		
+		for (int i = pos+1; i < lines.length-1; i++) {
 			String[] line = lines[i].trim().split("\t");
 			
 			String[] cmdInfo = line[0].trim().split("/");
