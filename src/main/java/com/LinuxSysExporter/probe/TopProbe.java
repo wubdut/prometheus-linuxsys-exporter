@@ -36,10 +36,10 @@ public class TopProbe {
 			
 			double cpu_val = DataParse.str2double(cpu);
 			double mem_val = DataParse.str2double(mem);
-			if (Math.max(cpu_val, mem_val) > 0.0) {
+//			if (Math.max(cpu_val, mem_val) > 0.0) {
 				String key = DataParse.commandParse(name) + "_" +pid;
 				map.put(key, new Pair<Double, Double> (cpu_val, mem_val));
-			}
+//			}
 		}
 	}
 	
