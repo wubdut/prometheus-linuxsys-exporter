@@ -29,6 +29,7 @@ public class NethogsProbe {
 			
 			String[] cmdInfo = line[0].trim().split("/");
 			int len = cmdInfo.length;
+			if (len != 3) continue;
 			String name = cmdInfo[len-3];
 			String pid = cmdInfo[len-2];
 			
