@@ -8,3 +8,4 @@ An exporter for prometheus, to get data of processes running in Linux.
 ## 说明
 - 采用远程采集数据
 - 只适合单机采集
+- version3.0将提供聚合探针和集群采集
