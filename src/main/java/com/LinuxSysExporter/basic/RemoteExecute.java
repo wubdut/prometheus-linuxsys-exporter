@@ -73,9 +73,9 @@ public class RemoteExecute {
         Session session = null;
         try {
             if(netStatus){
-                session= conn.openSession();//打开一个会话
+                session = conn.openSession();//打开一个会话
                 session.execCommand(cmd);//执行命令
-                result=processStdoutString(session.getStdout(),DEFAULTCHART);
+                result = processStdoutString(session.getStdout(),DEFAULTCHART);
                 //如果为得到标准输出为空，说明脚本执行出错了
                 if(StringUtils.isBlank(result)){
                     result=processStdoutString(session.getStderr(),DEFAULTCHART);
@@ -85,6 +85,7 @@ public class RemoteExecute {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            netStatus = false;
         } finally {
         	if (session != null)
         		session.close();

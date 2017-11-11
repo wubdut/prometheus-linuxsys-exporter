@@ -30,10 +30,10 @@ public class IotopProbe {
 			double io_val = DataParse.str2double(line[9]);
 			String name = line[11];
 			
-//			if (io_val > 0) {
+			if (io_val > 0) {
 				String key = DataParse.commandParse(name) + "_" + pid;
 				map.put(key, io_val);
-//			}
+			}
 		}
 	}
 	
